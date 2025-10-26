@@ -7,6 +7,22 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-10-26
+
+### Удалено
+
+- Удалены команды `:TmFind` и `:TmFindGlobal` - поиск по заметкам осуществляется через встроенный fuzzy search в Telescope при вызове `:TmList`
+- Удалены ключевые привязки `<leader>tf` и `<leader>tF`
+- Удалены функции `find_notes()` и `parse_find_results()` из модуля `core.lua`
+- Удалены mappings для find из конфигурации
+
+### Изменено
+
+- Убрано уведомление при инициализации плагина (`vim.notify` при setup)
+- Обновлены все ссылки на репозиторий с `yourusername/tm.nvim` на `Chupik13/tm.nvim`
+- Обновлена документация с указанием автора (Grigorii)
+- Упрощен интерфейс плагина - поиск теперь выполняется нативными средствами Telescope
+
 ## [1.0.1] - 2024-10-26
 
 ### Исправлено
@@ -58,6 +74,7 @@
 - plenary.nvim
 - lualine.nvim (опционально)
 
-[Unreleased]: https://github.com/yourusername/tm.nvim/compare/v1.0.1...HEAD
-[1.0.1]: https://github.com/yourusername/tm.nvim/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/yourusername/tm.nvim/releases/tag/v1.0.0
+[Unreleased]: https://github.com/Chupik13/tm.nvim/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Chupik13/tm.nvim/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/Chupik13/tm.nvim/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/Chupik13/tm.nvim/releases/tag/v1.0.0

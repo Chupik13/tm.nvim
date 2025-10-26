@@ -1,6 +1,6 @@
 # tm.nvim
 
-Плагин для Neovim, интегрирующий CLI-инструмент [Task Manager (tm)](https://github.com/yourusername/tm) для управления заметками в рабочих пространствах прямо из редактора.
+Плагин для Neovim, интегрирующий CLI-инструмент [Task Manager (tm)](https://github.com/Chupik13/tm) для управления заметками в рабочих пространствах прямо из редактора.
 
 ## Возможности
 
@@ -16,7 +16,7 @@
 ## Требования
 
 - Neovim >= 0.8.0
-- [tm](https://github.com/yourusername/tm) - CLI-инструмент Task Manager
+- [tm](https://github.com/Chupik13/tm) - CLI-инструмент Task Manager
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - обязательная зависимость
 - [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) - обязательная зависимость (требуется для Telescope)
 - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) - опциональная зависимость для статусной строки
@@ -45,7 +45,7 @@ tm --version
 
 ```lua
 {
-  "yourusername/tm.nvim",
+  "Chupik13/tm.nvim",
   dependencies = {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
@@ -67,7 +67,7 @@ tm --version
 
 ```lua
 use {
-  "yourusername/tm.nvim",
+  "Chupik13/tm.nvim",
   requires = {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
@@ -85,7 +85,7 @@ use {
 ```vim
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'yourusername/tm.nvim'
+Plug 'Chupik13/tm.nvim'
 
 lua << EOF
 require("tm").setup({
@@ -123,8 +123,6 @@ require("tm").setup({
     add_note = "<leader>ta",
     list = "<leader>tl",
     global_list = "<leader>tL",
-    find = "<leader>tf",
-    find_global = "<leader>tF",
   },
 
   -- Настройки Telescope
@@ -191,26 +189,6 @@ require("lualine").setup({
 :TmGlobalList
 ```
 
-### `:TmFind <TEXT> [-p SPACE_ID]`
-
-Поиск заметок по тексту в текущем (или указанном) пространстве.
-
-**Примеры:**
-```vim
-:TmFind молоко
-:TmFind домашнее задание -p 1
-```
-
-### `:TmFindGlobal <TEXT>`
-
-Глобальный поиск по всем пространствам.
-
-**Примеры:**
-```vim
-:TmFindGlobal отчет
-:TmFindGlobal купить молоко
-```
-
 ### `:TmInit`
 
 Вручную инициализировать рабочее пространство в текущей директории.
@@ -229,8 +207,6 @@ require("lualine").setup({
 | `<leader>ta` | `:TmAddNote` | Добавить заметку |
 | `<leader>tl` | `:TmList` | Список заметок |
 | `<leader>tL` | `:TmGlobalList` | Глобальный список |
-| `<leader>tf` | `:TmFind` | Поиск заметок (с prompt) |
-| `<leader>tF` | `:TmFindGlobal` | Глобальный поиск (с prompt) |
 
 ## Использование
 
@@ -240,7 +216,7 @@ require("lualine").setup({
 2. Нажмите `<leader>ta` для добавления первой заметки
 3. Введите текст заметки и нажмите Enter
 4. Нажмите `<leader>tl` для просмотра списка заметок
-5. Используйте `<leader>tf` для поиска заметок
+5. Используйте Telescope для поиска по тексту заметок
 
 ### Работа с множественными пространствами
 
@@ -257,9 +233,6 @@ cd ~/projects/project2
 
 " Просмотр всех заметок
 :TmGlobalList
-
-" Поиск по всем проектам
-:TmFindGlobal тесты
 ```
 
 ### Редактирование заметок

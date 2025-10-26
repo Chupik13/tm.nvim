@@ -20,8 +20,6 @@ M.defaults = {
     add_note = "<leader>ta",
     list = "<leader>tl",
     global_list = "<leader>tL",
-    find = "<leader>tf",
-    find_global = "<leader>tF",
   },
 
   -- Настройки Telescope

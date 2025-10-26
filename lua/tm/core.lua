@@ -208,52 +208,6 @@ function M.compact_notes(space_id, callback)
   end)
 end
 
--- Поиск текста в заметках
-function M.find_notes(search_text, space_id, global, callback)
-  local args = { "find", search_text }
-  if global then
-    table.insert(args, "-g")
-  elseif space_id then
-    table.insert(args, "-p")
-    table.insert(args, tostring(space_id))
-  end
-
-  M.execute_tm_command(args, function(obj)
-    if obj.code == 0 then
-      local results = M.parse_find_results(obj.stdout)
-      if callback then
-        callback({ success = true, results = results, raw = obj.stdout })
-      end
-    else
-      vim.notify("Ошибка поиска: " .. (obj.stderr or ""), vim.log.levels.ERROR)
-      if callback then
-        callback({ success = false, error = obj.stderr })
-      end
-    end
-  end)
-end
-
--- Парсинг результатов поиска
--- Формат: ID: [id], ...[контекст]...
-function M.parse_find_results(output)
-  local results = {}
-  if not output or output == "" then
-    return results
-  end
-
-  for line in output:gmatch("[^\r\n]+") do
-    local id, context = line:match("^ID:%s*(%d+),%s*(.+)$")
-    if id and context then
-      table.insert(results, {
-        id = tonumber(id),
-        context = context,
-      })
-    end
-  end
-
-  return results
-end
-
 -- Получение списка рабочих пространств
 function M.list_workspaces(callback)
   M.execute_tm_command({ "plist" }, function(obj)

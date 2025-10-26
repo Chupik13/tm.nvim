@@ -18,7 +18,7 @@ function M.add_note(opts)
   -- Проверяем установку tm
   if not core.is_tm_installed() then
     vim.notify(
-      "tm не установлен. Установите его из https://github.com/yourusername/tm",
+      "tm не установлен. Установите его из https://github.com/Chupik13/TaskManager",
       vim.log.levels.ERROR
     )
     return
@@ -76,57 +76,6 @@ function M.global_list()
   telescope.global_list()
 end
 
--- Команда: TmFind
-function M.find(opts)
-  if not core.is_tm_installed() then
-    vim.notify("tm не установлен", vim.log.levels.ERROR)
-    return
-  end
-
-  -- Парсим аргументы: текст для поиска и опциональный -p [id]
-  local args = opts.fargs
-  local search_text = ""
-  local space_id = nil
-  local i = 1
-
-  while i <= #args do
-    if args[i] == "-p" and args[i + 1] then
-      space_id = tonumber(args[i + 1])
-      i = i + 2
-    else
-      if search_text ~= "" then
-        search_text = search_text .. " "
-      end
-      search_text = search_text .. args[i]
-      i = i + 1
-    end
-  end
-
-  if search_text == "" then
-    vim.notify("Необходимо указать текст для поиска", vim.log.levels.WARN)
-    return
-  end
-
-  telescope.find_notes(search_text, space_id)
-end
-
--- Команда: TmFindGlobal
-function M.find_global(opts)
-  if not core.is_tm_installed() then
-    vim.notify("tm не установлен", vim.log.levels.ERROR)
-    return
-  end
-
-  local search_text = table.concat(opts.fargs, " ")
-
-  if search_text == "" then
-    vim.notify("Необходимо указать текст для поиска", vim.log.levels.WARN)
-    return
-  end
-
-  telescope.find_global(search_text)
-end
-
 -- Команда: TmInit (опциональная, для ручной инициализации)
 function M.init()
   if not core.is_tm_installed() then
@@ -152,16 +101,6 @@ function M.setup()
   vim.api.nvim_create_user_command("TmGlobalList", M.global_list, {
     nargs = 0,
     desc = "Показать все заметки из всех пространств",
-  })
-
-  vim.api.nvim_create_user_command("TmFind", M.find, {
-    nargs = "+",
-    desc = "Найти заметки по тексту",
-  })
-
-  vim.api.nvim_create_user_command("TmFindGlobal", M.find_global, {
-    nargs = "+",
-    desc = "Глобальный поиск заметок",
   })
 
   vim.api.nvim_create_user_command("TmInit", M.init, {

@@ -6,7 +6,7 @@
 
 -- Минимальная конфигурация
 {
-  "yourusername/tm.nvim",
+  "Chupik13/tm.nvim",
   dependencies = {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
@@ -18,7 +18,7 @@
 
 -- Полная конфигурация с настройками
 {
-  "yourusername/tm.nvim",
+  "Chupik13/tm.nvim",
   dependencies = {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
@@ -34,8 +34,6 @@
       add_note = "<leader>ta",
       list = "<leader>tl",
       global_list = "<leader>tL",
-      find = "<leader>tf",
-      find_global = "<leader>tF",
     },
     telescope = {
       theme = "ivy",
@@ -53,7 +51,7 @@
 
 -- С интеграцией lualine
 {
-  "yourusername/tm.nvim",
+  "Chupik13/tm.nvim",
   dependencies = {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
@@ -86,7 +84,7 @@
 -- ============================================================
 
 use {
-  "yourusername/tm.nvim",
+  "Chupik13/tm.nvim",
   requires = {
     "nvim-telescope/telescope.nvim",
     "nvim-lua/plenary.nvim",
@@ -99,8 +97,6 @@ use {
         add_note = "<leader>ta",
         list = "<leader>tl",
         global_list = "<leader>tL",
-        find = "<leader>tf",
-        find_global = "<leader>tF",
       },
     })
   end,
@@ -114,7 +110,7 @@ use {
 --[[
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'yourusername/tm.nvim'
+Plug 'Chupik13/tm.nvim'
 
 lua << EOF
 require("tm").setup({
@@ -124,8 +120,6 @@ require("tm").setup({
     add_note = "<leader>ta",
     list = "<leader>tl",
     global_list = "<leader>tL",
-    find = "<leader>tf",
-    find_global = "<leader>tF",
   },
 })
 EOF
@@ -140,8 +134,6 @@ require("tm").setup({
     add_note = false,
     list = false,
     global_list = false,
-    find = false,
-    find_global = false,
   },
 })
 

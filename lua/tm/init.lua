@@ -35,7 +35,6 @@ function M.setup(user_config)
   require("tm.statusline").setup_autocommands()
 
   initialized = true
-  vim.notify("tm.nvim инициализирован", vim.log.levels.INFO)
 end
 
 -- Настройка ключевых привязок
@@ -54,26 +53,6 @@ function M.setup_keymaps()
 
   if mappings.global_list then
     vim.keymap.set("n", mappings.global_list, ":TmGlobalList<CR>", { desc = "Глобальный список заметок" })
-  end
-
-  if mappings.find then
-    vim.keymap.set("n", mappings.find, function()
-      vim.ui.input({ prompt = "Поиск: " }, function(text)
-        if text and text ~= "" then
-          vim.cmd("TmFind " .. text)
-        end
-      end)
-    end, { desc = "Поиск заметок" })
-  end
-
-  if mappings.find_global then
-    vim.keymap.set("n", mappings.find_global, function()
-      vim.ui.input({ prompt = "Глобальный поиск: " }, function(text)
-        if text and text ~= "" then
-          vim.cmd("TmFindGlobal " .. text)
-        end
-      end)
-    end, { desc = "Глобальный поиск заметок" })
   end
 end
 
