@@ -7,6 +7,25 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2025-10-26
+
+### Добавлено
+
+- Иерархический список рабочих пространств в `:TmGlobalList` с возможностью collapse/expand
+- Визуальные индикаторы состояния рабочих пространств (▶ collapsed, ▼ expanded)
+- Управление рабочими пространствами из интерфейса Telescope:
+  - Удаление рабочего пространства через `tm premove [id]`
+  - Архивирование рабочего пространства через `tm parchive [id]`
+- Функции `remove_workspace()` и `archive_workspace()` в модуле `core.lua`
+- Интеллектуальные действия в TmGlobalList - автоматическое определение типа выбранного элемента (workspace или note)
+
+### Изменено
+
+- Полностью переработана функция `global_list()` в модуле `telescope.lua`
+- Улучшена навигация в глобальном списке - теперь можно сворачивать/разворачивать каждое пространство отдельно
+- Обновлена документация с подробным описанием новой функциональности
+- Маппинги клавиш `d` и `a` теперь работают контекстно (для workspace или note в зависимости от выбора)
+
 ## [1.1.0] - 2024-10-26
 
 ### Удалено
@@ -74,7 +93,8 @@
 - plenary.nvim
 - lualine.nvim (опционально)
 
-[Unreleased]: https://github.com/Chupik13/tm.nvim/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/Chupik13/tm.nvim/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/Chupik13/tm.nvim/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Chupik13/tm.nvim/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/Chupik13/tm.nvim/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Chupik13/tm.nvim/releases/tag/v1.0.0

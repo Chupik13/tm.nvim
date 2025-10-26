@@ -247,6 +247,44 @@ function M.parse_workspaces_list(output)
   return workspaces
 end
 
+-- Удаление рабочего пространства
+function M.remove_workspace(workspace_id, callback)
+  local args = { "premove", tostring(workspace_id) }
+
+  M.execute_tm_command(args, function(obj)
+    if obj.code == 0 then
+      vim.notify("Рабочее пространство " .. workspace_id .. " удалено", vim.log.levels.INFO)
+      if callback then
+        callback({ success = true })
+      end
+    else
+      vim.notify("Ошибка удаления пространства: " .. (obj.stderr or ""), vim.log.levels.ERROR)
+      if callback then
+        callback({ success = false, error = obj.stderr })
+      end
+    end
+  end)
+end
+
+-- Архивирование рабочего пространства
+function M.archive_workspace(workspace_id, callback)
+  local args = { "parchive", tostring(workspace_id) }
+
+  M.execute_tm_command(args, function(obj)
+    if obj.code == 0 then
+      vim.notify("Рабочее пространство " .. workspace_id .. " архивировано", vim.log.levels.INFO)
+      if callback then
+        callback({ success = true })
+      end
+    else
+      vim.notify("Ошибка архивирования пространства: " .. (obj.stderr or ""), vim.log.levels.ERROR)
+      if callback then
+        callback({ success = false, error = obj.stderr })
+      end
+    end
+  end)
+end
+
 -- Получение количества активных заметок для статусной строки
 function M.get_active_count(callback)
   M.list_notes(nil, false, function(result)
