@@ -7,12 +7,20 @@
 
 ## [Unreleased]
 
+## [1.0.1] - 2024-10-26
+
 ### Исправлено
 
 - Ошибка E32: No file name при редактировании заметок в split-буфере
 - Добавлено редактирование заметок в `TmGlobalList` (ранее отсутствовало)
 - Установка имени буфера для корректной работы команды `:w`
 - Установка `filetype = markdown` для подсветки синтаксиса в буфере редактирования
+
+### Добавлено
+
+- Техническая документация (TECHNICAL.md) с подробным описанием архитектуры
+- Описание структуры проекта (STRUCTURE.md) для быстрой навигации
+- Добавлен `.claude/` в .gitignore
 
 ## [1.0.0] - 2024-10-26
 
@@ -50,5 +58,6 @@
 - plenary.nvim
 - lualine.nvim (опционально)
 
-[Unreleased]: https://github.com/yourusername/tm.nvim/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/yourusername/tm.nvim/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/yourusername/tm.nvim/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/yourusername/tm.nvim/releases/tag/v1.0.0
