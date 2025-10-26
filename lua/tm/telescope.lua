@@ -92,6 +92,9 @@ local function create_note_actions(space_id, refresh_fn)
       local buf = vim.api.nvim_create_buf(false, true)
       vim.api.nvim_win_set_buf(0, buf)
 
+      -- Устанавливаем имя буфера (чтобы :w работал)
+      vim.api.nvim_buf_set_name(buf, "tm-note-" .. selection.note_id)
+
       -- Заполняем текстом заметки
       local lines = {}
       for line in selection.full_text:gmatch("[^\r\n]+") do
@@ -99,8 +102,12 @@ local function create_note_actions(space_id, refresh_fn)
       end
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
-      -- Создаем команду для сохранения
+      -- Настраиваем буфер
       vim.api.nvim_buf_set_option(buf, "buftype", "acwrite")
+      vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
+      vim.api.nvim_buf_set_option(buf, "modified", false)
+
+      -- Создаем команду для сохранения
       vim.api.nvim_create_autocmd("BufWriteCmd", {
         buffer = buf,
         callback = function()
@@ -112,6 +119,8 @@ local function create_note_actions(space_id, refresh_fn)
               core.add_note(content, space_id, function(add_result)
                 if add_result.success then
                   vim.notify("Заметка обновлена", vim.log.levels.INFO)
+                  -- Сбрасываем флаг modified и закрываем буфер
+                  vim.api.nvim_buf_set_option(buf, "modified", false)
                   vim.cmd("bdelete!")
                 end
               end)
@@ -272,10 +281,64 @@ function M.global_list()
                   end)
                 end
 
+                local edit_note = function()
+                  local selection = action_state.get_selected_entry()
+                  if not selection then
+                    return
+                  end
+
+                  actions.close(prompt_bufnr)
+
+                  -- Создаем временный буфер для редактирования
+                  vim.cmd("split")
+                  local buf = vim.api.nvim_create_buf(false, true)
+                  vim.api.nvim_win_set_buf(0, buf)
+
+                  -- Устанавливаем имя буфера (чтобы :w работал)
+                  vim.api.nvim_buf_set_name(buf, "tm-note-" .. selection.note_id)
+
+                  -- Заполняем текстом заметки
+                  local lines = {}
+                  for line in selection.full_text:gmatch("[^\r\n]+") do
+                    table.insert(lines, line)
+                  end
+                  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+                  -- Настраиваем буфер
+                  vim.api.nvim_buf_set_option(buf, "buftype", "acwrite")
+                  vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
+                  vim.api.nvim_buf_set_option(buf, "modified", false)
+
+                  -- Создаем команду для сохранения
+                  vim.api.nvim_create_autocmd("BufWriteCmd", {
+                    buffer = buf,
+                    callback = function()
+                      local content = table.concat(vim.api.nvim_buf_get_lines(buf, 0, -1, false), "\n")
+
+                      -- Удаляем старую и добавляем новую
+                      core.remove_note(selection.note_id, selection.workspace_id, function(result)
+                        if result.success then
+                          core.add_note(content, selection.workspace_id, function(add_result)
+                            if add_result.success then
+                              vim.notify("Заметка обновлена", vim.log.levels.INFO)
+                              -- Сбрасываем флаг modified и закрываем буфер
+                              vim.api.nvim_buf_set_option(buf, "modified", false)
+                              vim.cmd("bdelete!")
+                            end
+                          end)
+                        end
+                      end)
+                    end,
+                  })
+                end
+
                 map("n", "d", delete_note)
                 map("i", "<C-d>", delete_note)
                 map("n", "a", archive_note)
                 map("i", "<C-a>", archive_note)
+
+                -- Устанавливаем редактирование по умолчанию для <CR>
+                actions.select_default:replace(edit_note)
 
                 return true
               end,

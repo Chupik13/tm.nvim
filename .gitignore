@@ -25,6 +25,7 @@ tests/
 .idea/
 .vscode/
 *.sublime-*
+.claude/
 
 # Документация (генерируемая)
 doc/tags
